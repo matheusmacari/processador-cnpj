@@ -1,0 +1,28 @@
+server:
+  port: 9090
+
+api:
+  receitaws:
+    url: https://receitaws.com.br/v1/cnpj/
+
+management:
+  endpoints:
+    enabled-by-default: true
+    exposure:
+      include: "*"
+  endpoint:
+    health:
+      enabled: true
+  health:
+    mail:
+      enabled: false
+
+spring:
+  main:
+    allow-bean-definition-overriding: true
+
+  profiles:
+    active: dev
+
+  application:
+    name: processador-cnpj
