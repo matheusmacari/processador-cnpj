@@ -1,23 +1,23 @@
-package service
+package br.com.macari.cnpj.service
 
-import com.fasterxml.jackson.databind.ObjectMapper
-import com.google.gson.Gson
-import okhttp3.MediaType.Companion.toMediaType
+
 import okhttp3.OkHttpClient
 import okhttp3.Request
-import okhttp3.RequestBody.Companion.toRequestBody
-import org.springframework.beans.factory.annotation.Autowired
+import org.slf4j.LoggerFactory
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.http.HttpHeaders
 import org.springframework.stereotype.Service
 import java.util.concurrent.TimeUnit
 
 @Service
-class CnpjService @Autowired constructor(private val objectMapper: ObjectMapper) {
+class CnpjService {
+
     private val client = OkHttpClient().newBuilder().readTimeout(30, TimeUnit.SECONDS).build()
 
     @Value("\${api.receitaws.url}")
     private val receitaWSUrl: String? = null
+
+    private val log = LoggerFactory.getLogger(CnpjService::class.java)
 
     fun getCnpjDetails(cnpj: Int): String? {
 
