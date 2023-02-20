@@ -1,11 +1,15 @@
 package br.com.macari.cnpj.service
-
-
+import br.com.macari.cnpj.model.response.CnpjResponse
+import com.google.api.client.http.HttpStatusCodes
+import com.google.gson.Gson
+import com.google.gson.JsonObject
 import okhttp3.OkHttpClient
 import okhttp3.Request
 import org.slf4j.LoggerFactory
+import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.http.HttpHeaders
+import org.springframework.http.HttpStatus
 import org.springframework.stereotype.Service
 import java.util.concurrent.TimeUnit
 
@@ -19,7 +23,7 @@ class CnpjService {
 
     private val log = LoggerFactory.getLogger(CnpjService::class.java)
 
-    fun getCnpjDetails(cnpj: Int): String? {
+    fun getCnpjDetails(cnpj: String): CnpjResponse? {
 
         val request = Request.Builder()
             .url("$receitaWSUrl/$cnpj")
@@ -30,20 +34,23 @@ class CnpjService {
         try {
             val response = client.newCall(request).execute()
 
-            //val cnpjDetails = Gson().fromJson(response.body!!.string(), BackofficeSupportLoginResponse::class.java)
-            // mapear json to class
+            try {
+                return if (response.isSuccessful && response.code == HttpStatusCodes.STATUS_CODE_OK) {
+                    val response = Gson().fromJson(response.body!!.string(), JsonObject::class.java)
 
-            val cnpjDetails = response.body?.string()
-
-            response.close()
-
-            return cnpjDetails
-
+                    Gson().fromJson(response, CnpjResponse::class.java)
+                } else {
+                    null
+                }
+            }
+            finally {
+                response.close()
+            }
         } catch (ex: Exception) {
             println("Error get url: $receitaWSUrl/$cnpj ")
             println("Error message: ${ex.message} ")
 
-            return ""
+            return null
         }
     }
 }
