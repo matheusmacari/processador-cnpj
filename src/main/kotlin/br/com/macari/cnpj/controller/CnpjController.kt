@@ -3,7 +3,7 @@ import br.com.macari.cnpj.consts.C_FILE_NAME_CSV
 import br.com.macari.cnpj.consts.C_LIST_FILE
 import br.com.macari.cnpj.consts.C_PATH
 import br.com.macari.cnpj.consts.C_PATH_RESPONSE
-import br.com.macari.cnpj.fileutils.utils
+import br.com.macari.cnpj.utils.utils
 import br.com.macari.cnpj.model.response.CnpjResponse
 import br.com.macari.cnpj.service.CnpjService
 import com.google.gson.Gson
@@ -41,11 +41,13 @@ class CnpjController @Autowired constructor(private val cnpjService: CnpjService
 
         utils.loadFilesFromDir(C_PATH_RESPONSE).forEach {
             try {
-                val response = Gson().fromJson(it.readText(), CnpjResponse::class.java)
+                if (!it.isDirectory) {
+                    val response = Gson().fromJson(it.readText(), CnpjResponse::class.java)
 
-                if (response != null) {
-                    if (response.status == "OK") {
-                        utils.addJsonItemToCsv(C_PATH, C_FILE_NAME_CSV, response.toString())
+                    if (response != null) {
+                        if (response.status == "OK") {
+                            utils.addJsonItemToCsv(C_PATH, C_FILE_NAME_CSV, response.toString())
+                        }
                     }
                 }
 

@@ -1,4 +1,4 @@
-package br.com.macari.cnpj.fileutils
+package br.com.macari.cnpj.utils
 
 import br.com.macari.cnpj.consts.C_COLUNAS_CSV
 import java.io.File
