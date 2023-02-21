@@ -5,8 +5,16 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="09d6787e-b130-4833-8789-3914c9c7fa32" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/src/main/kotlin/br/com/macari/cnpj/model/response/BrasilApiResponse.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/kotlin/br/com/macari/cnpj/model/response/ReceitaWsResponse.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/br/com/macari/cnpj/consts/Consts.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/br/com/macari/cnpj/consts/Consts.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/kotlin/br/com/macari/cnpj/controller/CnpjController.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/br/com/macari/cnpj/controller/CnpjController.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/br/com/macari/cnpj/model/response/CnpjResponse.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/br/com/macari/cnpj/service/CnpjService.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/br/com/macari/cnpj/service/CnpjService.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/br/com/macari/cnpj/utils/utils.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/br/com/macari/cnpj/utils/utils.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/application.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/kotlin/br/com/macari/cnpj/controller/CnpjControllerTest.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/kotlin/br/com/macari/cnpj/controller/CnpjControllerTest.kt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -68,6 +76,9 @@
   </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
+  </component>
+  <component name="ProblemsViewState">
+    <option name="selectedTabId" value="CurrentFile" />
   </component>
   <component name="ProjectId" id="1zrcXV9Gjm2gaR7brdUhNgJbx1i" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
@@ -357,17 +368,20 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="kotlin-line">
           <url>file://$PROJECT_DIR$/src/test/kotlin/br/com/macari/cnpj/controller/CnpjControllerTest.kt</url>
-          <line>10</line>
+          <line>11</line>
           <option name="timeStamp" value="192" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="kotlin-line">
           <url>file://$PROJECT_DIR$/src/main/kotlin/br/com/macari/cnpj/controller/CnpjController.kt</url>
-          <line>43</line>
-          <option name="timeStamp" value="193" />
+          <line>12</line>
+          <properties>
+            <option name="lambda-ordinal" value="-1" />
+          </properties>
+          <option name="timeStamp" value="205" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="kotlin-function">
           <url>file://$PROJECT_DIR$/src/main/kotlin/br/com/macari/cnpj/controller/CnpjController.kt</url>
-          <line>39</line>
+          <line>48</line>
           <properties class="br.com.macari.cnpj.controller.CnpjController" method="processListOffline">
             <option name="EMULATED" value="true" />
             <option name="WATCH_EXIT" value="false" />

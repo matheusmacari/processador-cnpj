@@ -22,7 +22,7 @@ object utils {
     }
 
     fun addJsonItemToCsv(aPath : String, aFileName: String, aFields: String) {
-        var aList = StringBuilder()
+        var aList: StringBuilder = StringBuilder()
 
         if (fileExists(aPath, aFileName)) {
             for (readLine in File(aPath, aFileName).readLines()) {

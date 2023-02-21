@@ -4,7 +4,8 @@ server:
 api:
   receitaws:
     url: https://receitaws.com.br/v1/cnpj
-
+  brasilapi:
+    url: https://brasilapi.com.br/api/cnpj/v1
 spring:
   main:
     allow-bean-definition-overriding: true

@@ -1,4 +1,5 @@
 package br.com.macari.cnpj.controller
+import br.com.macari.cnpj.consts.ServiceApi
 import org.junit.jupiter.api.Test
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.context.SpringBootTest
@@ -8,6 +9,6 @@ class CnpjControllerTest @Autowired constructor(private val cnpjController: Cnpj
 
     @Test
     fun processList() {
-        cnpjController.processListOffline()
+        cnpjController.processListOnline(ServiceApi.BRASILAPI)
     }
 }

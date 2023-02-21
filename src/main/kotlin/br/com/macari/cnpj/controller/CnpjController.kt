@@ -1,10 +1,7 @@
 package br.com.macari.cnpj.controller
-import br.com.macari.cnpj.consts.C_FILE_NAME_CSV
-import br.com.macari.cnpj.consts.C_LIST_FILE
-import br.com.macari.cnpj.consts.C_PATH
-import br.com.macari.cnpj.consts.C_PATH_RESPONSE
+import br.com.macari.cnpj.consts.*
 import br.com.macari.cnpj.utils.utils
-import br.com.macari.cnpj.model.response.CnpjResponse
+import br.com.macari.cnpj.model.response.*
 import br.com.macari.cnpj.service.CnpjService
 import com.google.gson.Gson
 import org.springframework.beans.factory.annotation.Autowired
@@ -12,47 +9,69 @@ import org.springframework.stereotype.Controller
 
 @Controller
 class CnpjController @Autowired constructor(private val cnpjService: CnpjService){
-    fun processListOnline() {
-        utils.loadListFromFile(C_PATH, C_LIST_FILE).forEach {
+    fun processListOnline(service : ServiceApi) {
+        utils.loadListFromFile(C_INITIAL_DIR, C_LIST_FILE).forEach {
             try {
                 val aFileName = "$it.json"
 
                 println("Processando CNPJ: $it")
 
-                if (!utils.fileExists(C_PATH_RESPONSE, aFileName)) {
-                    val response = cnpjService.getCnpjDetails(it)
+                if (!utils.fileExists(C_PATH_RESPONSE_BRASILAPI, aFileName)) {
 
-                    if (response != null) {
-                        if (response.status == "OK") {
-                            utils.saveToFile(Gson().toJson(response).toString(), C_PATH_RESPONSE, aFileName)
-                            utils.addJsonItemToCsv(C_PATH, C_FILE_NAME_CSV, response.toString())
+                    if (service == ServiceApi.RECEITAWS) {
+
+                        val response = cnpjService.getCnpjDetailsReceitaWS(it)
+
+                        if (response != null) {
+                            if (response.status == "OK") {
+                                utils.saveToFile(Gson().toJson(response).toString(), C_PATH_RESPONSE_RECEITAWS, aFileName)
+
+                                utils.addJsonItemToCsv(C_PATH_RECEITAWS, C_FILE_NAME_CSV, response.toString())
+                            }
+                        } else {
+                            Thread.sleep(60000)
                         }
-                    } else {
-                        Thread.sleep(60000)
+                    }
+                    else{
+                        val response = cnpjService.getCnpjDetailsBrasilApi(it)
+
+                        utils.saveToFile(Gson().toJson(response).toString(), C_PATH_RESPONSE_BRASILAPI, aFileName)
+
+                        utils.addJsonItemToCsv(C_PATH_BRASILAPI, C_FILE_NAME_CSV, response.toString())
                     }
                 }
             }catch (ex: Exception) {
-                println("Error processList - CNPJ: $it")
+                println("Error processListOnline - CNPJ: $it")
             }
         }
     }
 
-    fun processListOffline() {
+    fun processListOffline(service : ServiceApi) {
+        var aPath = ""
+        var aPathCsv = ""
 
-        utils.loadFilesFromDir(C_PATH_RESPONSE).forEach {
+        if (service == ServiceApi.BRASILAPI) {
+            aPath = C_PATH_RESPONSE_BRASILAPI
+            aPathCsv = C_PATH_BRASILAPI
+        } else {
+            aPath = C_PATH_RESPONSE_RECEITAWS
+            aPathCsv = C_PATH_RECEITAWS
+        }
+
+        utils.loadFilesFromDir(aPath).forEach {
             try {
                 if (!it.isDirectory) {
-                    val response = Gson().fromJson(it.readText(), CnpjResponse::class.java)
+                    val response = Gson().fromJson(it.readText(), ReceitaWsResponse::class.java)
 
                     if (response != null) {
                         if (response.status == "OK") {
-                            utils.addJsonItemToCsv(C_PATH, C_FILE_NAME_CSV, response.toString())
+                            utils.addJsonItemToCsv(aPathCsv, C_FILE_NAME_CSV, response.toString())
                         }
                     }
                 }
 
             } catch (ex: Exception) {
-                println("Error processList - CNPJ: ${it.name}")
+                println("Error processListOffline - CNPJ: ${it.name}")
             }
         }
     }
